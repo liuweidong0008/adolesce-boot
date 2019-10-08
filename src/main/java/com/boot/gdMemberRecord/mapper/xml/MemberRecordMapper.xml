@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.gdMemberRecord.mapper.MemberRecordMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.boot.gdMemberRecord.entity.MemberRecord">
+		<result column="id" property="id" />
+		<result column="member_id" property="memberId" />
+		<result column="client_name" property="clientName" />
+		<result column="serial_no" property="serialNo" />
+		<result column="req_serial_no" property="reqSerialNo" />
+		<result column="e_serial_no" property="eSerialNo" />
+		<result column="trade_type" property="tradeType" />
+		<result column="amount" property="amount" />
+		<result column="balance" property="balance" />
+		<result column="currency" property="currency" />
+		<result column="transfer_time" property="transferTime" />
+		<result column="transfer_date" property="transferDate" />
+		<result column="card_no" property="cardNo" />
+		<result column="bank_no" property="bankNo" />
+		<result column="bank_name" property="bankName" />
+		<result column="status" property="status" />
+		<result column="fail_reason" property="failReason" />
+		<result column="remark" property="remark" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="handling_charge" property="handlingCharge" />
+		<result column="org_id" property="orgId" />
+		<result column="batch_date" property="batchDate" />
+		<result column="batch_status" property="batchStatus" />
+		<result column="apply_id" property="applyId" />
+		<result column="fund_roll_in_status" property="fundRollInStatus" />
+		<result column="way" property="way" />
+	</resultMap>
+
+	<select id="queryByOrgId" resultMap="BaseResultMap">
+		select * from gd_member_record where org_id=#{orgId}
+	</select>
+
+</mapper>

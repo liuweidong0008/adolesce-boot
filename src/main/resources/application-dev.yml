@@ -1,0 +1,117 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/mydatabase?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 10
+      minIdle: 30
+      maxActive: 50
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+    #多数据源
+    druid1:
+      jdbc-url: jdbc:mysql://localhost:3306/mydatabase2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    druid2:
+      jdbc-url: jdbc:mysql://localhost:3306/mydatabase?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    #schema: database/data.sql
+    #sql-script-encoding: utf-8
+  thymeleaf: 
+     cache: false
+  #SpringBootAdmin监控配置(参考：https://www.cnblogs.com/ityouknow/p/8440455.html)
+  #boot:
+    #admin:
+     #url: http://localhost:8000/spring-boot-admin-server
+  jpa:
+    properties:
+       hibernate:
+          hbm2ddl:
+            #create：每次加载 hibernate删除表，根据modal新生成表
+            #create-drop：每次加载 hibernate删除表，根据modal新生成表，但是sessionFactory 一关闭,表就自动删除
+            #update：常用，第一次加载 hibernate 时根据 model 类会自动建立起表的结构（前提是先建立好数据库），以后加载 hibernate 时根据 model 类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行
+            #validate ：每次加载 hibernate 时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。
+            auto: update
+          #指定生成表名的存储引擎为 InnoDBD
+          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    #是否打印出自动生成的 SQL，方便调试的时候查看
+    show-sql: true
+    #hibernate:
+       #ddl-auto: none
+  redis:
+    database: 0             #数据库索引（默认为0）
+    host: 192.168.1.134   #服务器地址
+    port: 6379              #服务器连接端口(默认)
+    password: lwd               #服务器连接密码 (默认为空 没有不填)
+    timeout: 60000ms          #连接超时时间（毫秒）
+    jedis:
+      pool:
+        max-active: 500       #连接池最大连接数（使用负值表示没有限制）默认 8
+        max-wait: 10000ms        #连接池最大阻塞等待时间（使用负值表示没有限制）默认 -1
+        max-idle: 100         #连接池中的最大空闲连接 默认 8
+        min-idle: 0           #连接池中的最小空闲连接 默认 0
+  rabbitmq:
+    host: 192.168.1.134
+    port: 5672
+    username: lwd
+    password: lwd
+  servlet:
+    encoding:
+      charset: UTF-8 #防止@Value自动注入   中文乱码
+    multipart:
+      enabled: true  #默认支持文件上传.
+      file-size-threshold: 0 #支持文件写入磁盘.
+      location: D://filetest/ # 上传文件的临时目录
+      max-file-size: 15MB   # 单个文件最大支持上传大小
+      max-request-size: 15MB  # 总数最大支持上传大小
+  #热部署
+  devtools:
+    restart:
+      #热部署开关，false即不启用热部署
+      enabled: true
+      #指定目录不更新
+      exclude: test/**
+  mail:
+    host: smtp.qiye.163.com
+    username: service@51kxd.cn
+    password: 1QAZ2wsx
+    default-encoding: UTF-8
+
+person:
+  name: 张三
+  age: 16
+  address: 北京市
+
+server:
+  port: 8081  #自定义监听端口,默认8080
+  servlet:
+    context-path: /spring_boot #配置项目名
+
+#actuator监控配置(参考：https://www.cnblogs.com/ityouknow/p/8423590.html)
+management:
+  server:
+    security:
+      enabled: false #默认有一部分信息需要安全验证之后才可以查看  可关掉安全认证
+    port: 8082 #管理端口调整成8088
+    context-path: /monitor #actuator的访问路径     启用单独的url地址来监控Spring Boot应用
+  endpoints:
+    shutdown:
+      enabled: true #启用接口关闭Spring Boot
+      #sensitive: false
+info:
+  app:
+    name: spring-boot-actuator
+    version: 1.0.0    #http://localhost:8088/monitor/info

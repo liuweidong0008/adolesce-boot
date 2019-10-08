@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello Thymeleaf!</title>
+</head>
+<body>
+	<p>一、变量表达式(EL)：</p>
+    <p th:text="'Hello, ' + ${name} + '!'" />
+    <span th:text="${user.userName}" />  
+    
+    <p>二、选择(星号)表达式:
+	    <div th:object="${user}">  
+		    <span th:text="*{userName}"/><br/>
+		    <span th:text="*{age}"/>
+	    </div> 
+    </p>
+    
+    <p>三、几种常用的使用方法：
+	    <div>
+	    	<span th:text="1、字符拼接"/>：<span th:text="'Hello' + ${name} + '!'" /><br/>
+	    	<span th:text="2、字符拼接 "/>：<span th:text="|Hello${name}!|"/><br/>
+	    	<span th:text="3、条件判断 "/>：<span th:if="${user.userName=='lwd'}">xxx</span><br/>
+	    	<span th:text="4、条件判断 "/>：<span th:unless="${user.userName=='lwd'}">xxx</span><br/>
+	    	<span th:text="5、for循环 "/>：
+		    	<table>
+			    	 <tr  th:each="data,iterStat : ${books}"> 
+					     <td th:text="${data}"></td>
+					     <td th:text="${iterStat.index}">当前迭代对象的index（从0开始计算）</td>
+					     <td th:text="${iterStat.count}">当前迭代对象的index(从1开始计算)</td>
+					     <td th:text="${iterStat.size}">被迭代对象的大小</td>
+					     <td th:text="${iterStat.current}">当前迭代变量</td>
+					     <td th:text="${iterStat.even}">布尔值，当前循环是否是偶数（从0开始计算）</td>
+					     <td th:text="${iterStat.odd}">布尔值，当前循环是否是奇数（从0开始计算）</td>
+					     <td th:text="${iterStat.first}">布尔值，当前循环是否是第一个</td>
+					     <td th:text="${iterStat.last}">布尔值，当前循环是否是最后一个</td>
+					 </tr>
+				</table>
+	    </div>
+    </p>
+    
+    <p>四、常用th标签：
+	    <div>
+	    	<span th:text="替代id【th：id】"/>：<input th:id="'xxx' + ${user.id}"/><br/>
+	    	<span th:text="文本替换【th：text】"/>：上述已有示例<br/>
+	    	<span th:text="支持html的文本替换【th：utext】"/>：<span th:utext="${user.userName}">xxx</span><br/>
+	    	<span th:text="替换对象【th：object】"/>：上述已有示例<br/>
+	  		<span th:text="属性赋值【th：value】"/>：<input th:value="${user.userName}"/><br/>
+	  		<span th:text="变量赋值运算【th：with】"/>：<span th:with="isEven=${user.id}%2==0"/><br/>
+	    </div>
+    </p>
+    <a href="https://www.cnblogs.com/ityouknow/p/5833560.html" target="_blank">更多...</a>
+</body>
+</html>
