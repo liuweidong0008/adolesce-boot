@@ -182,6 +182,18 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.4</version>
         </dependency>
+		<!--集成微信4j-->
+		<dependency>
+			<groupId>org.weixin4j.spring.boot</groupId>
+			<artifactId>weixin4j-spring-boot-starter</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.collections/google-collections -->
+		<dependency>
+			<groupId>com.google.collections</groupId>
+			<artifactId>google-collections</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<!-- 热部署支持 -->

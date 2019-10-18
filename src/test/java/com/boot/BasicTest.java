@@ -6,13 +6,17 @@ package com.boot;
 
 import cn.hutool.core.date.DateUtil;
 import com.boot.common.utils.UUIDUtils;
+import com.boot.entity.Address;
 import com.boot.user.entity.User;
 import com.boot.users.entity.Users;
+import com.google.common.collect.Maps;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * <b>Application name：</b> BasicTest.java <br>
@@ -196,15 +200,89 @@ public class BasicTest {
         String d = "ab"+"ef";
         String e = "ef";
 
-        System.out.println(a == b);
-        System.out.println(a.equals(b));
+        //true，比较的是放置于常量池中的字符串
+        System.out.println("a == b : " + (a == b));
+        //true，比较的字符串内容
+        System.out.println("a.equals(b) : " + a.equals(b));
+        //false，a是放置于常量池中的字符串，c一个是在堆中new的对象
+        System.out.println("a == c : " + (a == c));
+        //true，比较的是字符串内容
+        System.out.println("a.equals(c) : " + a.equals(c));
+        //true，比较的是放置于常量池中的字符串
+        System.out.println("e == \"ef\" : "+ (e == "ef"));
 
-        System.out.println(a == c);
-        System.out.println(a.equals(c));
+        //false
+        System.out.println("(\"ab\"+e) == \"abef\" : " + (("ab"+e) == "abef"));
+        //true
+        System.out.println("(\"ab\"+e).equals(d) : " + ("ab"+e).equals(d));
+        //true
+        System.out.println("a == (\"a\"+\"b\") : "+ (a == ("a"+"b")));
+        //true
+        System.out.println("(\"ab\"+\"ef\") == \"abef\" : "+ (("ab"+"ef") == "abef"));
+        //false
+        System.out.println("(a+e) == \"abef\" : "+ ((a+e) == "abef"));
+        //false
+        System.out.println("(a+e) == d : "+ ((a+e) == d));
 
-        System.out.println(e == "ef");
-
-        System.out.println(("ab"+e) == "abef");
-        System.out.println(("ab"+e).equals(d));
+        String s1 = null;
+        String s2 = "abc";
+        //nullabc
+        System.out.println(s1 + s2);
+        //相当于以下：（如有大量的字符串操作情况，不能使用String来拼接而是使用StringBuilder，避免产生大量无用的中间对象）
+        StringBuilder sb1 = new StringBuilder(String.valueOf("null"));
+        StringBuilder sb2 = new StringBuilder("abc");
+        sb1.append(sb2).toString();
     }
+
+    /**
+     * 用最少循环将具有父子关系对象列表转换成树结构
+     */
+    @Test
+    public void test11(){
+        List<Address> list = getAddressList();
+        Map<String,Address> map = Maps.uniqueIndex(list, address -> address.getCode());
+        Consumer<Address> consumer = address -> {
+            //如果为空则为根节点，不做处理
+            if(Objects.nonNull(address.getParentCode())){
+                Address parentAddress = map.get(address.getParentCode());
+                if(Objects.isNull(parentAddress.getChildAddress())){
+                    parentAddress.setChildAddress(new ArrayList<Address>());
+                }
+                parentAddress.getChildAddress().add(address);
+            }
+        };
+
+        list.stream().forEach(consumer);
+        String rootCode = list.stream().filter(address -> address.getParentCode() == null).
+                collect(Collectors.toList()).get(0).getCode();
+        System.out.println(map.get(rootCode));
+    }
+
+    private List<Address> getAddressList() {
+        Address address0 = new Address("0",null);
+
+        Address address1 = new Address("1","0");
+        Address address2 = new Address("2","0");
+
+        Address address3 = new Address("11","1");
+        Address address4 = new Address("12","1");
+        Address address5 = new Address("13","1");
+
+        Address address6 = new Address("21","2");
+        Address address7 = new Address("22","2");
+        Address address8 = new Address("23","2");
+
+        List<Address> list = new ArrayList<>();
+        list.add(address0);
+        list.add(address1);
+        list.add(address2);
+        list.add(address3);
+        list.add(address4);
+        list.add(address5);
+        list.add(address6);
+        list.add(address7);
+        list.add(address8);
+        return list;
+    }
+
 }

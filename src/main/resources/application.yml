@@ -34,7 +34,7 @@ spring:
   profiles:
     #active: dev #可永于指定用哪个配置文件  application-{active}.yml or application-{active}.properties
     active:
-      - dev
+      - test
 
 
 
@@ -42,7 +42,7 @@ spring:
 ---
 # 测试环境配置 
 spring:
-  profiles: test
+  profiles: dev
   #热部署
   devtools:
     restart:
@@ -152,3 +152,4 @@ person:
      name: 李四00
      age: 1000
      address: 北京市
+

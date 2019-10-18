@@ -292,4 +292,18 @@ public class DemoController {
 		return JSON.toJSONString(users);
 	}
 
+	/**
+	 * 测试逗号分隔字符串后端List接收
+	 *
+	 * @param ids
+	 * @return
+	 *
+	 * 调用：http://localhost:8081/spring_boot/testIdsAccept?ids=1,2,3,4
+	 */
+	@RequestMapping("testIdsAccept")
+	public String testIdsAccept(@RequestParam List<String> ids){
+		log.debug("ids:{}", JSON.toJSON(ids));
+		return JSON.toJSONString(ids);
+	}
+
 }
