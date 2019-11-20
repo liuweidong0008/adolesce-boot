@@ -285,4 +285,29 @@ public class BasicTest {
         return list;
     }
 
+    @Test
+    public void test12(){
+        Set<String> sets = new HashSet<String>();
+
+        String s1 = "abc";
+        String s2 = "abcd";
+        String s3 = "abc";
+        List<String> list1 = new ArrayList<String>();
+        list1.add(s1);
+        list1.add(s2);
+        list1.add(s3);
+
+        String s4 = "abc";
+        String s5 = "abcd";
+        String s6 = "abc";
+        List<String> list2 = new ArrayList<String>();
+        list2.add(s4);
+        list2.add(s5);
+        list2.add(s6);
+
+        sets.addAll(list1);
+        sets.addAll(list2);
+        System.out.println(sets);
+    }
+
 }

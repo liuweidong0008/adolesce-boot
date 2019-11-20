@@ -58,14 +58,23 @@ public class EncodeTest {
         String encode = null;
         //String url = "https://www.baidu.com?k1=v1&k2=v2";
         //String url = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon%26f=y";
-        String url = "http://123.56.228.112:35678/a0364d31-6a82-4f3e-beed-b5c76e2cd288.png";
+        String url = "https://www.baidu.com?k1=v1&k2=v2";
         System.out.println("编码前：" + url);
         encode = EscapeUtils.escape(url);
         System.out.println("编码后：" + encode);
         String decode = EscapeUtils.unescape(encode);// GBK解码
         System.out.println("解码后："+decode);
+        https://www.baidu.com?k1=v1&k2=v2
 
-
+        /*https%3A%2F%2Fwww.baidu.com%3Fk1%3Dv1%26k2%3Dv2
+        https%3a%2f%2fwww%2ebaidu%2ecom%3fk1%3dv1%26k2%3dv2
+        %3A ：
+        %2F /
+        %2E .
+        %3F ?
+        %3D =
+        %26 &
+        */
         System.out.println("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx680f894598927e4f&" +
                 "redirect_uri=https://app.yidab.com/yyf-app/wechat/callback.do?channel=9&" +
                     "redirectUrl=/authorization?salesmanId=2540&publicityId=1175038332313894912&scope=snsapi_userinfo&response_type=code&scope=snsapi_userinfo&state=myscH5#wechat_redirect");

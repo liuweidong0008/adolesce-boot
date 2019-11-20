@@ -27,40 +27,40 @@ import java.util.stream.Stream;
 public class StreamAndOptionalTest {
     /**
      * Stream
-     *
+     * <p>
      * Java 8 API添加了一个新的抽象称为流Stream，可以让你以一种声明的方式处理数据。
      * Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。 比如filter, map, reduce, find, match, sorted等。
      * Stream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。
      * 这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。
      * 元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminaloperation)得到前面处理的结果。
-     *
+     * <p>
      * 元素：是特定类型的对象，形成一个队列。Java中的Stream并不会存储元素，而是按需计算。
-     *
+     * <p>
      * 数据源 ：流的来源。可以是集合，数组，I/O channel，产生器generator等。
-     *
+     * <p>
      * 特点：
-     *   1. 不是数据结构，不会保存数据。
-     *   2. 不会修改原来的数据源，它会将操作后的数据保存到另外一个对象中。（保留意见：毕竟peek方法可以修改流中元素）
-     *   3. 惰性求值，流在中间处理过程中，只是对操作进行了记录，并不会立即执行，需要等到执行终止操作的时候才会进行实际的计算。
-     *
+     * 1. 不是数据结构，不会保存数据。
+     * 2. 不会修改原来的数据源，它会将操作后的数据保存到另外一个对象中。（保留意见：毕竟peek方法可以修改流中元素）
+     * 3. 惰性求值，流在中间处理过程中，只是对操作进行了记录，并不会立即执行，需要等到执行终止操作的时候才会进行实际的计算。
+     * <p>
      * https://www.runoob.com/java/java8-streams.html
      */
     @Test
-    public void createStyle(){
+    public void createStyle() {
         //由Collection子类（List，Set）来创建流：
-        List<String> list = Arrays.asList("a","b","c");
+        List<String> list = Arrays.asList("a", "b", "c");
         Stream stram = list.stream();
         Stream parallelSteam = list.parallelStream();
 
         //由数据来创建流：
-        String[] strArr = new String[]{"a","b","c"};
+        String[] strArr = new String[]{"a", "b", "c"};
         Stream stream = Arrays.stream(strArr);
 
         //还有许多重载形式的方法，可以返回带类型的Stream，例如：
-        IntStream intStream = Arrays.stream(new int []{1,2,3,4,5});
+        IntStream intStream = Arrays.stream(new int[]{1, 2, 3, 4, 5});
 
         //通过具体值来创建流：通过Stream的静态方法Stream.of(T...values)可以创建一个流，它可以接受任意个值
-        Stream s = Stream.of("1","2",3,new String[]{"a", "b", "c"});
+        Stream s = Stream.of("1", "2", 3, new String[]{"a", "b", "c"});
     }
 
     @Test
@@ -87,15 +87,15 @@ public class StreamAndOptionalTest {
         List<Integer> squaresList = numbers.stream().map(i -> i * i).distinct().collect(Collectors.toList());
         System.out.println("Squares List: " + squaresList);
 
-        List<Integer> integers = Arrays.asList(1,2,13,4,15,6,17,8,19);
+        List<Integer> integers = Arrays.asList(1, 2, 13, 4, 15, 6, 17, 8, 19);
         System.out.println("列表: " + integers);
         IntSummaryStatistics stats = integers.stream().mapToInt((x) -> 1).summaryStatistics();
 
         //limit 方法用于获取指定数量的流
         //sorted 方法用于对流进行排序   默认正序排序
-        List<Integer> paixus = integers.stream().sorted((s1,s2)->s2.compareTo(s1)).limit(7).collect(Collectors.toList());
+        List<Integer> paixus = integers.stream().sorted((s1, s2) -> s2.compareTo(s1)).limit(7).collect(Collectors.toList());
 
-        System.out.println("排序:"+paixus);
+        System.out.println("排序:" + paixus);
         System.out.println("列表中最大的数 : " + stats.getMax());
         System.out.println("列表中最小的数 : " + stats.getMin());
         System.out.println("所有数之和 : " + stats.getSum());
@@ -129,32 +129,37 @@ public class StreamAndOptionalTest {
 
         //排序（正序）
         //users.sort((u1,u2) -> u1.getAge().compareTo(u2.getAge()));
-        //users.sort(Comparator.comparing(Users::getAge));
+        users.sort(Comparator.comparing(Users::getAge));
         //users.steam().sorted(Comparator.comparing(Users::getAge))
-        //users.forEach(System.err::println);
+        users.forEach(System.err::println);
+
+        users.stream().filter(user -> user.getAge() >= 6 && user.getAge() <= 15)
+                .sorted(Comparator.comparing(Users::getAge))
+                .map(user -> user.getUserName())
+                //.mapToInt(user -> user.getAge())
+                //.distinct()
+                //.limit(10)
+                //.skip(5)
+                .forEach(System.err::println);
 
         /*users.stream().filter(user -> user.getAge()>=6 && user.getAge()<=15)
-                      .sorted(Comparator.comparing(Users::getAge))
-                      .map(user -> user.getUserName())
-                      //.mapToInt(user -> user.getAge())
-                      .distinct()
-                      .limit(10)
-                      .skip(5)
-                      .forEach(System.err::println);*/
-
-        users.stream().filter(user -> user.getAge()>=6 && user.getAge()<=15)
                       //设置新值
                       .peek(user -> user.setAge(50))
-                      .forEach(System.err::println);
+                      .forEach(System.err::println);*/
 
         /*String userNameStr = users.stream().filter(user -> user.getAge()>=6 && user.getAge()<=15)
                 .map(Users::getUserName)
                 .collect(Collectors.joining("','","('","')"));
         System.out.println(userNameStr);*/
+
+       /* users.stream().map(u -> {
+            u.setAge(123);
+            return u;
+        }).forEach(System.err::println);*/
     }
 
     @Test
-    public void testConllect() {
+    public void testCollect() {
         List<Users> users = this.getUsers();
         users.forEach(System.out::println);
         System.out.println("--------------------------------");
@@ -168,12 +173,12 @@ public class StreamAndOptionalTest {
         long count = users.stream().collect(Collectors.counting());
         //求和
         int sum = users.stream().collect(Collectors.summingInt(Users::getAge));
-            //users.stream().collect(Collectors.summingDouble(Users::getAge));
-            //users.stream().collect(Collectors.summarizingLong(Users::getAge));
+        //users.stream().collect(Collectors.summingDouble(Users::getAge));
+        //users.stream().collect(Collectors.summarizingLong(Users::getAge));
         //求平均数
         double averag = users.stream().collect(Collectors.averagingInt(Users::getAge));
-            //users.stream().collect(Collectors.averagingDouble(Users::getAge));
-            //users.stream().collect(Collectors.averagingLong(Users::getAge));
+        //users.stream().collect(Collectors.averagingDouble(Users::getAge));
+        //users.stream().collect(Collectors.averagingLong(Users::getAge));
         //以运算对象求运算结果集
         IntSummaryStatistics intStats = users.stream().collect(Collectors.summarizingInt(Users::getAge));
         //DoubleSummaryStatistics doubleStats = users.stream().collect(Collectors.summarizingDouble(Users::getAge));
@@ -185,11 +190,11 @@ public class StreamAndOptionalTest {
         intStats.getSum();
 
         //按给定值进行分组（按姓名分组）
-        Map<String,List<Users>> kv = users.stream().collect(Collectors.groupingBy(Users::getUserName));
+        Map<String, List<Users>> kv = users.stream().collect(Collectors.groupingBy(Users::getUserName));
         //按是否符合条件（true|false）进行分组
-        Map<Boolean,List<Users>> kvv = users.stream().collect(Collectors.partitioningBy(user -> user.getAge() > 10));
+        Map<Boolean, List<Users>> kvv = users.stream().collect(Collectors.partitioningBy(user -> user.getAge() > 10));
         //转换成Map
-        Map<String,Users> userMap = users.stream().limit(5).collect(Collectors.toMap(Users::getUserName,user -> user));
+        Map<String, Users> userMap = users.stream().limit(5).collect(Collectors.toMap(Users::getUserName, user -> user));
         System.out.println(userMap);
         //users.stream().limit(5).forEach(System.out::println);
     }
@@ -205,18 +210,18 @@ public class StreamAndOptionalTest {
         List<Users> users = this.getUsers();
         users.forEach(System.out::println);
         System.out.println("--------------------------------");
-        boolean allMatdhFlag = users.stream().allMatch(user -> user.getAge()>10);
-        boolean anyMatch = users.stream().anyMatch(user -> user.getAge()>10);
-        boolean noneMatch = users.stream().noneMatch(user -> user.getAge()>10);
+        boolean allMatdhFlag = users.stream().allMatch(user -> user.getAge() > 10);
+        boolean anyMatch = users.stream().anyMatch(user -> user.getAge() > 10);
+        boolean noneMatch = users.stream().noneMatch(user -> user.getAge() > 10);
 
-        System.out.println("allMatdhFlag: "+allMatdhFlag);
-        System.out.println("anyMatch: "+anyMatch);
-        System.out.println("noneMatch: "+noneMatch);
+        System.out.println("allMatdhFlag: " + allMatdhFlag);
+        System.out.println("anyMatch: " + anyMatch);
+        System.out.println("noneMatch: " + noneMatch);
     }
 
 
     @Test
-    public void testOptional(){
+    public void testOptional() {
         List<Users> users = this.getUsers();
         users.forEach(System.out::println);
         System.out.println("--------------------------------");
@@ -225,19 +230,19 @@ public class StreamAndOptionalTest {
         long count = users.stream().count();
 
         Optional<Users> first = users.stream().sorted(Comparator.comparing(Users::getAge)).findFirst();
-        Optional min = users.stream().min((u2,u1) -> u1.getAge().compareTo(u2.getAge()));
-        Optional max = users.stream().max((u2,u1) -> u1.getAge().compareTo(u2.getAge()));
+        Optional min = users.stream().min((u2, u1) -> u1.getAge().compareTo(u2.getAge()));
+        Optional max = users.stream().max((u2, u1) -> u1.getAge().compareTo(u2.getAge()));
 
         Optional min2 = users.stream().collect(Collectors.minBy(Comparator.comparing(Users::getAge)));
         Optional max2 = users.stream().collect(Collectors.maxBy(Comparator.comparing(Users::getAge)));
 
 
-        System.out.println("count: "+count);
-        System.out.println("first: "+first.get());
-        System.out.println("min: "+min.get());
-        System.out.println("min2: "+min2.get());
-        System.out.println("max: "+max.get());
-        System.out.println("max2: "+max2.get());
+        System.out.println("count: " + count);
+        System.out.println("first: " + first.get());
+        System.out.println("min: " + min.get());
+        System.out.println("min2: " + min2.get());
+        System.out.println("max: " + max.get());
+        System.out.println("max2: " + max2.get());
 
         Users user = null;
         Optional<Users> optional1 = Optional.of(user);
@@ -246,16 +251,16 @@ public class StreamAndOptionalTest {
 
     private List<Users> getUsers() {
         List<Users> userList = new ArrayList<>();
-        for (int i = 6;i<=10;i++){
+        for (int i = 6; i <= 10; i++) {
             getUsers(userList, i);
         }
-        for (int i = 6;i<=10;i++){
+        for (int i = 6; i <= 10; i++) {
             getUsers(userList, i);
         }
-        for (int i = 1;i<=5;i++){
+        for (int i = 1; i <= 5; i++) {
             getUsers(userList, i);
         }
-        for (int i = 11;i<=15;i++){
+        for (int i = 11; i <= 15; i++) {
             getUsers(userList, i);
         }
         return userList;
@@ -269,7 +274,6 @@ public class StreamAndOptionalTest {
         users.setBirthday(DateUtil.date());
         userList.add(users);
     }
-
 
 
     List<Employee> emps = Arrays.asList(
@@ -286,7 +290,7 @@ public class StreamAndOptionalTest {
      */
     @Test
     public void test3() {
-        //1.过滤掉年龄小于25的员工
+       /* //1.过滤掉年龄小于25的员工
         emps.stream().filter((e) -> e.getAge() > 25).forEach(System.out::println);
         //2.过滤掉姓名重复的员工
         emps.stream().distinct().forEach(System.out::println);
@@ -295,8 +299,18 @@ public class StreamAndOptionalTest {
         //4.获取第三名以后的员工
         emps.stream().skip(3).forEach(System.out::println);
         //5.先获取前3名员工，再获取其中年龄大于25的员工。（中间操作可以任意次）
-        emps.stream().limit(3).filter(e -> e.getAge() > 25);
+        emps.stream().limit(3).filter(e -> e.getAge() > 25);*/
+
+        List<String> list = new ArrayList<>();
+        emps.stream().peek(e -> {
+            if (e.getAge() > 38) {
+                list.add(e.getName());
+                e.setAge(88);
+            }
+        }).forEach(System.out::println);
+        System.out.println(list); //空
     }
+
     /**
      * 映射操作 map, mapToDouble, mapToInt, mapToLong, flatMap
      */
@@ -323,7 +337,17 @@ public class StreamAndOptionalTest {
         emps.stream().flatMap(e -> {
             return Stream.of(e.getName(), e.getAge(), e.getSalary());
         }).forEach(System.out::println);
+
+
+        //1. 获取所有员工的姓名
+        emps.stream().map(e -> e.getName()).forEach(System.out::println);
+        //2. 获取所有员工的工资，这里工资是Double类型，我们可以用mapToDouble方法
+        emps.stream().mapToDouble(e -> e.getSalary()).summaryStatistics();
+        //3. 获取所有员工的年龄，用mapToInt方法
+        //emps.stream().
+        //4. 将员工年龄转换成Long型并输出,PS：这里就算不用longValue系统也会自动将getAge转换成Long类型
     }
+
     /**
      * 排序操作 sorted
      */
@@ -332,7 +356,7 @@ public class StreamAndOptionalTest {
         //1.按照自然排序，注意，需要进行自然排序则对象必须实现Comparable接口
         emps.stream().sorted().forEach(System.out::println);
         //2.按照给定规则进行排序,(按照工资高低进行排序)
-        emps.stream().sorted((x,y) -> Double.compare(x.getSalary(),y.getSalary())).forEach(System.out::println);
+        emps.stream().sorted((x, y) -> Double.compare(x.getSalary(), y.getSalary())).forEach(System.out::println);
     }
 
 
@@ -375,7 +399,19 @@ public class StreamAndOptionalTest {
         System.out.println(minAge.get());
         //10.循环输出所有员工的信息
         emps.stream().forEach(System.out::println);
+
+        //1.查看是否有员工年龄是否都大于18
+        //2.先去掉张三，然后再判断所有员工年龄是否都大于18
+        //3.是否有员工年龄大于50
+        //4.没有员工的年龄大于50？
+        //5.先按照年龄进行排序，然后返回第一个员工。optional是java8用来包装可能出现空指针的对象的对象
+        //6. 查找任意一名员工的姓名，当使用顺序流时，返回的是第一个对象，当使用并行流时，会随机返回一名员工的姓名
+        //7. 查询员工人数
+        //8.查询员工工资最大的员工信息。PS: 这个也可以通过先按照工资排序，然后取第一个元素来实现
+        //9.查询员工最小年龄
+        //10.循环输出所有员工的信息
     }
+
     /**
      * 终止操作：规约 reduce
      * 规约操作两个重载方法的区别是：
@@ -385,13 +421,16 @@ public class StreamAndOptionalTest {
     @Test
     public void test7() {
         //1.将所有员工的名字加上 -> 下一个员工的名字： 如 张三 -> 李四
-        Optional<Employee> op1 = emps.stream().reduce((x,y) -> {x.setName(x.getName() + "->" + y.getName()); return x;});
+        Optional<Employee> op1 = emps.stream().reduce((x, y) -> {
+            x.setName(x.getName() + "->" + y.getName());
+            return x;
+        });
         System.out.println(op1.get().getName());  //张三->李四->王五->田七->赵六->赵六
         //2.将所有员工的名字加上 -> 下一个员工的名字，并且开始以王八开始;
         // PS:测试时，请将例子1注释掉，不然会影响emps对象
         Employee emp = emps.stream()
                 .reduce(new Employee("王八", 65, 8888.88)
-                        , (x,y) -> {
+                        , (x, y) -> {
                             x.setName(x.getName() + "->" + y.getName());
                             return x;
                         });
@@ -402,7 +441,7 @@ public class StreamAndOptionalTest {
      * 终止操作：收集
      */
     @Test
-    public void test8(){
+    public void test8() {
         //1.按年龄排序后收集成一个list并返回
         List<Employee> list = emps.stream().sorted((x, y) -> Integer.compare(x.getAge(), y.getAge()))
                 .collect(Collectors.toList());
@@ -422,21 +461,21 @@ public class StreamAndOptionalTest {
         int inttotal = emps.stream().collect(Collectors.summingInt(Employee::getAge));
         System.out.println(inttotal);
         //6.计算所有员工工资的平均值：
-        Double doubleavg= emps.stream().collect(Collectors.averagingDouble(Employee::getSalary));
+        Double doubleavg = emps.stream().collect(Collectors.averagingDouble(Employee::getSalary));
         System.out.println(doubleavg);
         //7.返回一个IntSummaryStatistics，可以通过这个对象获取统计值，如平均值：
-        IntSummaryStatistics iss =emps.stream().collect(Collectors.summarizingInt(Employee::getAge));
+        IntSummaryStatistics iss = emps.stream().collect(Collectors.summarizingInt(Employee::getAge));
         System.out.println(iss.getAverage());
         System.out.println(iss.getMax());
         System.out.println(iss.getMin());
         //8.连接所有员工的名字：
-        String str= emps.stream().map(Employee::getName).collect(Collectors.joining());
+        String str = emps.stream().map(Employee::getName).collect(Collectors.joining());
         System.out.println(str);
         //9.相当于先按照工资进行排序，再取出排在第一位的员工
-        Optional<Employee> min = emps.stream().collect(Collectors.minBy((x ,y) -> Double.compare(x.getSalary(), y.getSalary())));
+        Optional<Employee> min = emps.stream().collect(Collectors.minBy((x, y) -> Double.compare(x.getSalary(), y.getSalary())));
         System.out.println(min);
         //10.相当于先按照工资进行排序，再取出排在最后一位的员工
-        Optional<Employee> max = emps.stream().collect(Collectors.maxBy((x ,y) -> Double.compare(x.getSalary(), y.getSalary())));
+        Optional<Employee> max = emps.stream().collect(Collectors.maxBy((x, y) -> Double.compare(x.getSalary(), y.getSalary())));
         System.out.println(max);
         //11.从一个作为累加器的初始值开始，利用BinaryOperator与流中元素逐个结合，从而归约成单个值。
         Integer totalAge = emps.stream().collect(Collectors.reducing(0, Employee::getAge, Integer::sum));
@@ -448,10 +487,7 @@ public class StreamAndOptionalTest {
         Map<String, List<Employee>> kv = emps.stream().collect(Collectors.groupingBy(Employee::getName));
         System.out.println(emps);
         //14.根据true或false进行分区，年龄大于30的分在true区，小于30的分在false区
-        Map<Boolean,List<Employee>> vd = emps.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 30));
+        Map<Boolean, List<Employee>> vd = emps.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 30));
         System.out.println(vd);
     }
-
-
-
 }
