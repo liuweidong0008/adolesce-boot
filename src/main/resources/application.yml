@@ -34,7 +34,7 @@ spring:
   profiles:
     #active: dev #可永于指定用哪个配置文件  application-{active}.yml or application-{active}.properties
     active:
-      - test
+      - dev
 
 
 
@@ -42,7 +42,7 @@ spring:
 ---
 # 测试环境配置 
 spring:
-  profiles: dev
+  profiles: test
   #热部署
   devtools:
     restart:

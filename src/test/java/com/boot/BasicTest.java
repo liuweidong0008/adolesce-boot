@@ -310,4 +310,18 @@ public class BasicTest {
         System.out.println(sets);
     }
 
+    @Test
+    public void test13(){
+       /* List<User> users = new ArrayList<>();
+        User user;
+        for (int i = 0;i < 5;i++){
+            user = new User();
+            user.setAge(i);
+            user.setName("lwd");
+            users.add(user);
+        }
+        System.out.println(users);*/
+       new HashMap<>(0);
+    }
+
 }
