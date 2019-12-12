@@ -2,8 +2,12 @@ package com.boot.users.entity;
 
 import cn.hutool.core.date.DateUtil;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -44,6 +48,7 @@ public class Users implements Serializable {
 	private Integer age;
 	
 	@Column
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthday;
 
 	/**

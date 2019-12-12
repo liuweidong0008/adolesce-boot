@@ -4,6 +4,7 @@ import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ public class FilterConfiguration {
     }
 
 	@Bean
+    @Order(1)
 	public FilterRegistrationBean myFilterOneRegist() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(new MyFilterOne());
@@ -32,18 +34,19 @@ public class FilterConfiguration {
 		registration.addInitParameter("paramName", "paramValue");
 		registration.setName("MyFilterOne");
         //默认值Integer.MAX_VALUE 过滤器链按照该值从小到大依次执行
-		registration.setOrder(1);
+		//registration.setOrder(1);
 		return registration;
 	}
 
 	@Bean
+    @Order(2)
 	public FilterRegistrationBean myFilterTwoRegist() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(new MyFilterTwo());
 		registration.addUrlPatterns(new String[] { "/hello" });
 		registration.addInitParameter("paramName", "paramValue");
 		registration.setName("MyFilterTwo");
-		registration.setOrder(2);
+		//registration.setOrder(2);
 		return registration;
 	}
 

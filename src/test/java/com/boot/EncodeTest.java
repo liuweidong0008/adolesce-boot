@@ -74,6 +74,7 @@ public class EncodeTest {
         %3F ?
         %3D =
         %26 &
+        %20 空格
         */
         System.out.println("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx680f894598927e4f&" +
                 "redirect_uri=https://app.yidab.com/yyf-app/wechat/callback.do?channel=9&" +

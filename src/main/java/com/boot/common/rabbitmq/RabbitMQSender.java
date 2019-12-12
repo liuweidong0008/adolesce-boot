@@ -1,18 +1,20 @@
 package com.boot.common.rabbitmq;
 
-import java.util.Date;
-
+import com.boot.user.entity.User;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.boot.user.entity.User;
+import java.util.Date;
 
 @Component
 public class RabbitMQSender {
 
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
+
+	private AmqpTemplate amqpTemplate;
 
 	public void sendStr() {
 		String context = "hello " + new Date();
