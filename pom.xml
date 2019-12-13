@@ -22,7 +22,7 @@
 		<mybatis-starter-version>2.0.0</mybatis-starter-version>
 		<mybatis-plus.version>2.0.7</mybatis-plus.version>
 		<druid.version>1.0.26</druid.version>
-		<hutool.version>4.6.6</hutool.version>
+		<hutool-all.version>4.6.6</hutool-all.version>
 	</properties>
 
 	<dependencies>
@@ -167,8 +167,8 @@
 		<!--Hutool工具类集合-->
 		<dependency>
 			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-core</artifactId>
-			<version>${hutool.version}</version>
+			<artifactId>hutool-all</artifactId>
+			<version>${hutool-all.version}</version>
 		</dependency>
         <!--fastjson-->
 		<dependency>
