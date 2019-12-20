@@ -76,7 +76,7 @@ spring:
       file-size-threshold: 0 #支持文件写入磁盘.
       location: D://filetest/ # 上传文件的临时目录
       max-file-size: 15MB   # 单个文件最大支持上传大小
-      max-request-size: 15MB  # 总数最大支持上传大小
+      max-request-size: 150MB  # 总数最大支持上传大小
   #热部署
   devtools:
     restart:

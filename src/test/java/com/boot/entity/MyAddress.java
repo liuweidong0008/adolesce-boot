@@ -19,12 +19,12 @@ import java.util.List;
  */
 
 @Data
-public class Address {
+public class MyAddress {
     private String code;
     private String parentCode;
-    private List<Address> childAddress;
+    private List<MyAddress> childMyAddresses;
 
-    public Address(String code,String parentCode) {
+    public MyAddress(String code, String parentCode) {
         this.code = code;
         this.parentCode = parentCode;
     }
@@ -34,7 +34,7 @@ public class Address {
         return "Address{" +
                 "code='" + code + '\'' +
                 ", parentCode='" + parentCode + '\'' +
-                ", childAddress=\n" + childAddress +
+                ", childAddress=\n" + childMyAddresses +
                 '}'+"\n";
     }
 }

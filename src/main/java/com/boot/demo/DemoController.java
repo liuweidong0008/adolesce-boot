@@ -1,4 +1,4 @@
-package com.boot.demo.controller;
+package com.boot.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.boot.bean.MyParam;

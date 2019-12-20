@@ -278,11 +278,14 @@ public class StreamAndOptionalTest {
 
     List<Employee> emps = Arrays.asList(
             new Employee("张三", 18, 6666.66),
+            new Employee("张三", 15, 6666.66),
+            new Employee("张三", 40, 6666.66),
             new Employee("李四", 20, 7777.77),
             new Employee("王五", 36, 8888.88),
             new Employee("田七", 55, 11111.11),
             new Employee("赵六", 55, 9999.99),
-            new Employee("赵六", 45, 12222.22)
+            new Employee("赵六", 45, 12222.22),
+            new Employee("赵六", 30, 9999.99)
     );
 
     /**
@@ -489,5 +492,25 @@ public class StreamAndOptionalTest {
         //14.根据true或false进行分区，年龄大于30的分在true区，小于30的分在false区
         Map<Boolean, List<Employee>> vd = emps.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 30));
         System.out.println(vd);
+    }
+
+
+    /**
+     * 按某个字段分组后再按某个字段排序，每个组内取最大的放入最终集合
+     */
+    @Test
+    public void test9() {
+        emps.forEach(System.out::println);
+        System.out.println("--------------------------------");
+        List<Employee> result = new ArrayList<>();
+        Map<String, List<Employee>> groupMap = emps.stream().collect(Collectors.groupingBy(Employee::getName));
+        List<Employee> etemp;
+        for (Map.Entry<String,List<Employee>> entry:groupMap.entrySet()){
+            etemp = entry.getValue();
+            //Optional<Employee> temp = etemp.stream().sorted(Comparator.comparing(Employee::getAge)).findFirst();
+            Optional<Employee> temp = etemp.stream().sorted((e1,e2) -> e2.getAge().compareTo(e1.getAge())).findFirst();
+            result.add(temp.get());
+        }
+        result.stream().forEach(System.err::println);
     }
 }

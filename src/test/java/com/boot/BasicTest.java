@@ -4,9 +4,10 @@
  *******************************************************************************/
 package com.boot;
 
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.boot.common.utils.UUIDUtils;
-import com.boot.entity.Address;
+import com.boot.entity.MyAddress;
 import com.boot.user.entity.User;
 import com.boot.users.entity.Users;
 import com.google.common.collect.Maps;
@@ -239,49 +240,49 @@ public class BasicTest {
      */
     @Test
     public void test11(){
-        List<Address> list = getAddressList();
-        Map<String,Address> map = Maps.uniqueIndex(list, address -> address.getCode());
-        Consumer<Address> consumer = address -> {
+        List<MyAddress> list = getAddressList();
+        Map<String, MyAddress> map = Maps.uniqueIndex(list, myAddress -> myAddress.getCode());
+        Consumer<MyAddress> consumer = myAddress -> {
             //如果为空则为根节点，不做处理
-            if(Objects.nonNull(address.getParentCode())){
-                Address parentAddress = map.get(address.getParentCode());
-                if(Objects.isNull(parentAddress.getChildAddress())){
-                    parentAddress.setChildAddress(new ArrayList<Address>());
+            if(Objects.nonNull(myAddress.getParentCode())){
+                MyAddress parentMyAddress = map.get(myAddress.getParentCode());
+                if(Objects.isNull(parentMyAddress.getChildMyAddresses())){
+                    parentMyAddress.setChildMyAddresses(new ArrayList<MyAddress>());
                 }
-                parentAddress.getChildAddress().add(address);
+                parentMyAddress.getChildMyAddresses().add(myAddress);
             }
         };
 
         list.stream().forEach(consumer);
-        String rootCode = list.stream().filter(address -> address.getParentCode() == null).
+        String rootCode = list.stream().filter(myAddress -> myAddress.getParentCode() == null).
                 collect(Collectors.toList()).get(0).getCode();
         System.out.println(map.get(rootCode));
     }
 
-    private List<Address> getAddressList() {
-        Address address0 = new Address("0",null);
+    private List<MyAddress> getAddressList() {
+        MyAddress myAddress0 = new MyAddress("0",null);
 
-        Address address1 = new Address("1","0");
-        Address address2 = new Address("2","0");
+        MyAddress myAddress1 = new MyAddress("1","0");
+        MyAddress myAddress2 = new MyAddress("2","0");
 
-        Address address3 = new Address("11","1");
-        Address address4 = new Address("12","1");
-        Address address5 = new Address("13","1");
+        MyAddress myAddress3 = new MyAddress("11","1");
+        MyAddress myAddress4 = new MyAddress("12","1");
+        MyAddress myAddress5 = new MyAddress("13","1");
 
-        Address address6 = new Address("21","2");
-        Address address7 = new Address("22","2");
-        Address address8 = new Address("23","2");
+        MyAddress myAddress6 = new MyAddress("21","2");
+        MyAddress myAddress7 = new MyAddress("22","2");
+        MyAddress myAddress8 = new MyAddress("23","2");
 
-        List<Address> list = new ArrayList<>();
-        list.add(address0);
-        list.add(address1);
-        list.add(address2);
-        list.add(address3);
-        list.add(address4);
-        list.add(address5);
-        list.add(address6);
-        list.add(address7);
-        list.add(address8);
+        List<MyAddress> list = new ArrayList<>();
+        list.add(myAddress0);
+        list.add(myAddress1);
+        list.add(myAddress2);
+        list.add(myAddress3);
+        list.add(myAddress4);
+        list.add(myAddress5);
+        list.add(myAddress6);
+        list.add(myAddress7);
+        list.add(myAddress8);
         return list;
     }
 
@@ -312,16 +313,8 @@ public class BasicTest {
 
     @Test
     public void test13(){
-       /* List<User> users = new ArrayList<>();
-        User user;
-        for (int i = 0;i < 5;i++){
-            user = new User();
-            user.setAge(i);
-            user.setName("lwd");
-            users.add(user);
-        }
-        System.out.println(users);*/
        new HashMap<>(0);
+        System.out.println(DateTime.now().toString());
     }
 
 }

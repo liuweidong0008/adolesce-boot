@@ -133,7 +133,7 @@ server:
   servlet:
      context-path: /spring_boot #配置项目名
       
-  #actuator监控配置(参考：https://www.cnblogs.com/ityouknow/p/8423590.html)
+#actuator监控配置(参考：https://www.cnblogs.com/ityouknow/p/8423590.html)
 management:
   server:
     security:

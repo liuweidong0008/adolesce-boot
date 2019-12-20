@@ -1,6 +1,6 @@
 package com.boot.jdk8Speciality;
 
-import com.boot.entity.Address;
+import com.boot.entity.MyAddress;
 import org.junit.Test;
 
 import javax.script.ScriptEngine;
@@ -227,7 +227,7 @@ public class LambdaAndFunctionInterfaceTest {
 		Supplier<String> supplier = () -> "aa";
 
 		//UnaryOperator<T> 接受一个参数为类型T,返回值类型也为T。
-		UnaryOperator<Address> unaryOperator = a -> a;
+		UnaryOperator<MyAddress> unaryOperator = a -> a;
 	}
 	
 	@Test
