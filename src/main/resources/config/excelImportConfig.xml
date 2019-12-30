@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<excelImportConfigs>
+	<config name="userImportConfiger">
+		<classPath>com.boot.excel.UserImportVo</classPath>
+		<!-- 实际起始行，第一行就是1 -->
+		<startLine>3</startLine>
+		<fields>
+			<field>
+				<name>name</name>
+				<desc>姓名</desc>
+				<columnIndex>0</columnIndex>
+				<allowBlank>false</allowBlank> 
+			</field>
+			<field>
+				<name>sex</name>
+				<desc>性别</desc>
+				<columnIndex>1</columnIndex>
+				<allowBlank>false</allowBlank>
+				<regex>^[0-1]\d{0}$</regex>
+				<regexMsg>性别应为code值{0/1}</regexMsg>
+			</field>
+			<field>
+				<name>email</name>
+				<desc>电子邮件</desc>
+				<columnIndex>2</columnIndex>
+				<allowBlank>false</allowBlank>
+				<regex>^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$</regex>
+				<regexMsg>邮箱格式不正确</regexMsg>
+			</field>
+			<field>
+				<name>role</name>
+				<desc>角色</desc>
+				<columnIndex>3</columnIndex>
+				<allowBlank>false</allowBlank>
+			</field>
+			<field> 
+				<name>age</name>
+				<desc>年龄</desc>         
+				<columnIndex>4</columnIndex>
+				<allowBlank>false</allowBlank> 
+				<!-- <regex>^[0-9]\d{0}$</regex>  
+				<regexMsg>excel填写数据中年龄填写有误！</regexMsg> -->
+			</field>   
+			<field>
+				<name>birthDay</name>
+				<desc>生日</desc>
+				<columnIndex>5</columnIndex>
+				<allowBlank>false</allowBlank>
+			</field> 
+			<field> 
+				<name>saraly</name>
+				<desc>薪水</desc>         
+				<columnIndex>6</columnIndex>
+				<allowBlank>false</allowBlank> 
+				<regex>^[0-9]+(\.[0-9]{1,2})?$</regex>
+				<regexMsg>薪水一栏,请填写正整数或两位小数</regexMsg>
+			</field>  
+			<field>
+				<name>phone</name>
+				<desc>联系方式</desc>
+				<columnIndex>7</columnIndex>
+				<allowBlank>false</allowBlank>
+				<regex>^1[2|3|5|7|8|9]\d{9}$</regex>
+				<regexMsg>手机号格式错误</regexMsg>
+				
+			</field>
+			<field>
+				<name>hobby</name>
+				<desc>爱好</desc>
+				<columnIndex>8</columnIndex>
+				<allowBlank>false</allowBlank>
+			</field>
+			<field>
+				<name>flag</name>
+				<desc>状态</desc>
+				<columnIndex>9</columnIndex>
+				<allowBlank>false</allowBlank>
+				<regex>^[1-2]\d{0}$</regex>
+				<regexMsg>状态应为code值{1/2}</regexMsg>
+			</field>
+		</fields>
+	</config>
+</excelImportConfigs>
