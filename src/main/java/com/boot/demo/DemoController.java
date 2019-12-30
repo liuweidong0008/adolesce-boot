@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-//@Controller+@ResponseBody
-@RestController
+@Controller //@ResponseBody
+//@RestController
 @EnableConfigurationProperties({DemoProperties.class})
 public class DemoController {
     @Autowired
@@ -43,6 +44,7 @@ public class DemoController {
      * @param name  姓名 非必传
      * @return
      */
+    @ResponseBody
     @RequestMapping({"/hello"})
     public String hello(Model model,
                         @RequestParam(value = "name", required = false, defaultValue = "World") String name) {
@@ -65,6 +67,7 @@ public class DemoController {
      *
      * @return
      */
+    @ResponseBody
     @RequestMapping("demoProperties")
     public String demoProperties() {
         return this.demoProperties.getOne() + this.demoProperties.getTwo() + this.demoProperties.getThree();
@@ -75,6 +78,7 @@ public class DemoController {
      *
      * @return
      */
+    @ResponseBody
     @RequestMapping("personProperties")
     public String psersonProperties(MyParam myParam) {
         return myParam.getIp() + ":" + myParam.getName() + myParam.getAge() + myParam.getAddress();
@@ -85,6 +89,7 @@ public class DemoController {
      *
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "myProperties")
     public String myProperties(@RequestParamsTrim Users users) {
         return this.myProperties.getName() + this.myProperties.getAge() + this.myProperties.getAddress();
@@ -102,6 +107,7 @@ public class DemoController {
 
     /**
      * 开始上传
+     *
      *
      * @param file
      * @param redirectAttributes

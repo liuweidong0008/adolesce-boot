@@ -293,25 +293,26 @@ public class StreamAndOptionalTest {
      */
     @Test
     public void test3() {
-       /* //1.过滤掉年龄小于25的员工
-        emps.stream().filter((e) -> e.getAge() > 25).forEach(System.out::println);
+        //1.过滤掉年龄小于25的员工
+        List<Employee> list = emps.stream().filter((e) -> e.getAge() > 25).collect(Collectors.toList());
+        System.out.println(list);
         //2.过滤掉姓名重复的员工
-        emps.stream().distinct().forEach(System.out::println);
+        //emps.stream().distinct().forEach(System.out::println);
         //3.获取前三名员工
-        emps.stream().limit(3).forEach(System.out::println);
+        //emps.stream().limit(3).forEach(System.out::println);
         //4.获取第三名以后的员工
-        emps.stream().skip(3).forEach(System.out::println);
+        //emps.stream().skip(3).forEach(System.out::println);
         //5.先获取前3名员工，再获取其中年龄大于25的员工。（中间操作可以任意次）
-        emps.stream().limit(3).filter(e -> e.getAge() > 25);*/
+        //emps.stream().limit(3).filter(e -> e.getAge() > 25);
 
-        List<String> list = new ArrayList<>();
+        /*List<String> list = new ArrayList<>();
         emps.stream().peek(e -> {
             if (e.getAge() > 38) {
                 list.add(e.getName());
                 e.setAge(88);
             }
         }).forEach(System.out::println);
-        System.out.println(list); //空
+        System.out.println(list); //空*/
     }
 
     /**

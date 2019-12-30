@@ -11,6 +11,9 @@ import com.boot.entity.MyAddress;
 import com.boot.user.entity.User;
 import com.boot.users.entity.Users;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -315,6 +318,24 @@ public class BasicTest {
     public void test13(){
        new HashMap<>(0);
         System.out.println(DateTime.now().toString());
+        System.out.println("A"+"    aa   bb   ".trim()+"B");
+        System.out.println("A"+ StringUtils.trim("    aa   bb   ")+"B");
+        System.out.println("A"+ StringUtils.trimToEmpty("    aa   bb   ")+"B");
+        System.out.println("A"+ StringUtils.trimToNull("    aa   bb   ")+"B");
+
+        System.out.println("A"+ "       ".trim()+"B");
+        System.out.println("A"+ StringUtils.trim("       ")+"B");
+        System.out.println("A"+ StringUtils.trimToEmpty("       ")+"B");
+        System.out.println("A"+ StringUtils.trimToNull("       ")+"B");
+
+        System.out.println(StringUtils.isEmpty("    "));
+        System.out.println(StringUtils.isBlank("    "));
+        System.out.println(StringUtils.isBlank(""));
+        System.out.println(StringUtils.isBlank(""));
+        System.out.println(StringUtils.isBlank(null));
+        System.out.println(StringUtils.isBlank(null));
+
+
     }
 
 }

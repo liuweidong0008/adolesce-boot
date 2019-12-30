@@ -5,9 +5,10 @@
 package com.boot.excel;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,29 +25,75 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("/excel")
 public class ExcelController {
     @Resource
-    private ExcelExportService excelExportService;
+    private ExcelService excelService;
 
     /**
-     * 方式一
+     * 导出方式一
      * @param request
      * @param response
      */
     @GetMapping(value = "/export/style1")
-    public void style1(HttpServletRequest request, HttpServletResponse response){
-        this.excelExportService.style1(response);
+    public void exportStyle1(HttpServletRequest request, HttpServletResponse response){
+        this.excelService.exportStyle1(response);
     }
 
     /**
-     * 方式二
+     * 导出方式二
      * @param request
      * @param response
      */
     @GetMapping(value = "/export/style2")
-    public void style2(HttpServletRequest request, HttpServletResponse response){
-        this.excelExportService.style2(response);
+    public void exportStyle2(HttpServletRequest request, HttpServletResponse response){
+        this.excelService.exportStyle2(response);
     }
+
+    /**
+     * 导出方式三
+     * @param request
+     * @param response
+     */
+    @GetMapping(value = "/export/style3")
+    public void exportStyle3(HttpServletRequest request, HttpServletResponse response){
+        this.excelService.exportStyle3(response);
+    }
+
+    /**
+     * 导出方式四
+     * @param request
+     * @param response
+     */
+    @GetMapping(value = "/export/style4")
+    public void exportStyle4(HttpServletRequest request, HttpServletResponse response){
+        this.excelService.exportStyle4(response);
+    }
+
+    /**
+     * 跳转至上传页面
+     *
+     * @return
+     */
+    @GetMapping({"importPage"})
+    public String importStyle1() {
+        return "excel/import/uploadPage";
+    }
+
+    /**
+     * 导入方式一
+     * @param file
+     * @param redirectAttributes
+     */
+    @PostMapping(value = "/import/style1")
+    public String importStyle1(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws Exception {
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            return "redirect:uploadStatus";
+        }
+        this.excelService.importStyle1(file,redirectAttributes);
+        return "redirect:uploadStatus";
+    }
+
 }

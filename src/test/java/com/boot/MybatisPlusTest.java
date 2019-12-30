@@ -64,7 +64,7 @@ public class MybatisPlusTest{
 	@Test
 	public void testIn1() throws ParseException{
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
-		recordQueryWrapper.in("serial_no","KXD1491369102379331,KXD150675297785607,KXD1491397184622312");
+		recordQueryWrapper.in("serial_no","KXD1491534271296521,KXD151022561733751,801828121515491393957641");
 		//WHERE (serial_no IN (?,?,?)) 
 		this.selectList(recordQueryWrapper);
 	}

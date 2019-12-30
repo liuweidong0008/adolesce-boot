@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<excelExportConfigs>
+    <config name="memberRecord">
+        <sheets>
+            <sheet name="sheet1">
+                <headers>
+                    <header name="流水号" key="serialNo"/>
+                    <header name="姓名" key="clientName"/>
+                    <header name="银行卡号" key="cardNo"/>
+                    <header name="银行名称" key="bankName"/>
+                    <header name="交易时间" key="transferTime"/>
+                </headers>
+            </sheet>
+            <sheet name="sheet2">
+                <headers>
+                    <header name="流水号" key="serialNo"/>
+                    <header name="姓名" key="clientName"/>
+                    <header name="交易时间" key="transferTime"/>
+                </headers>
+            </sheet>
+        </sheets>
+    </config>
+</excelExportConfigs>
