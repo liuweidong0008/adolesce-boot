@@ -213,10 +213,10 @@ public class ExcelService {
      * @param redirectAttributes
      */
     public void importStyle1(MultipartFile fileItem, RedirectAttributes redirectAttributes) throws Exception {
-        //创建一个解析Excel导入工具类实例
-        ExcelImportHelper ImportHelper = new ExcelImportHelper();
+        //创建一个Excel导入帮助类实例
+        ExcelImportHelper importHelper = new ExcelImportHelper();
         //读取sheet1信息,并保存在List中
-        List<ExcelImportBaseBo> resultList = ImportHelper.importExcel("userImportConfiger", fileItem, 0);
+        List<ExcelImportBaseBo> resultList = importHelper.importExcel("userImportConfiger", fileItem, 0);
         //将导入数据保存到数据库表
         this.saveImportData(resultList,redirectAttributes);
     }
