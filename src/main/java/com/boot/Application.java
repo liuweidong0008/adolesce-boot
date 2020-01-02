@@ -41,7 +41,7 @@ public class Application extends SpringBootServletInitializer {
     /**
      * springboot项目，若打包成war包，使用外置的tomcat启动 需：
      *  1、需要继承 org.springframework.boot.context.web.SpringBootServletInitializer类
-     *  2、然后重写configure(SpringApplicationBuilder application)方法
+     *  2、然后重写configure(SpringApplicationBuilder application)方法1
      *
      * @param builder
      * @return
