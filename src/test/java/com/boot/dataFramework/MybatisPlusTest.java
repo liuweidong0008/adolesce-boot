@@ -1,4 +1,4 @@
-package com.boot;
+package com.boot.dataFramework;
 
 import com.baomidou.mybatisplus.enums.SqlLike;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;

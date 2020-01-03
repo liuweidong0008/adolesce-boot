@@ -1,4 +1,4 @@
-package com.boot;
+package com.boot.dataFramework;
 
 import com.boot.framework.utils.UUIDUtils;
 import com.boot.module.users.entity.Address;

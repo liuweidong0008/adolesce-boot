@@ -1,4 +1,4 @@
-package com.boot;
+package com.boot.redis;
 
 import com.boot.framework.redis.RedisService;
 import com.boot.module.users.entity.Users;

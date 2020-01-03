@@ -1,4 +1,4 @@
-package com.boot;
+package com.boot.dataFramework;
 
 import cn.hutool.core.date.DateUtil;
 import com.boot.framework.utils.UUIDUtils;
