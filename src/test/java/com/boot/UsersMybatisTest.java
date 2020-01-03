@@ -1,10 +1,10 @@
 package com.boot;
 
 import cn.hutool.core.date.DateUtil;
-import com.boot.common.utils.UUIDUtils;
-import com.boot.users.entity.Users;
-import com.boot.users.mapper.annostyle.UsersAnnoMapper;
-import com.boot.users.mapper.xmlstyle.UsersXmlMapper;
+import com.boot.framework.utils.UUIDUtils;
+import com.boot.module.users.entity.Users;
+import com.boot.module.users.mapper.annostyle.UsersAnnoMapper;
+import com.boot.module.users.mapper.xmlstyle.UsersXmlMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

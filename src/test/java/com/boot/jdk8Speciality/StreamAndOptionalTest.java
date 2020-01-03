@@ -5,9 +5,9 @@
 package com.boot.jdk8Speciality;
 
 import cn.hutool.core.date.DateUtil;
-import com.boot.common.utils.UUIDUtils;
+import com.boot.framework.utils.UUIDUtils;
 import com.boot.entity.Employee;
-import com.boot.users.entity.Users;
+import com.boot.module.users.entity.Users;
 import org.junit.Test;
 
 import java.util.*;

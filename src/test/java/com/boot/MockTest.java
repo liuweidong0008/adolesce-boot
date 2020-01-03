@@ -1,6 +1,6 @@
 package com.boot;
 
-import com.boot.demo.DemoController;
+import com.boot.module.demo.DemoController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

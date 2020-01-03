@@ -1,6 +1,6 @@
 package com.boot;
 
-import com.boot.common.mail.MailSendService;
+import com.boot.framework.mail.MailSendService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

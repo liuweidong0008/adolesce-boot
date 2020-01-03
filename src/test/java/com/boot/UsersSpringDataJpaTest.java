@@ -1,11 +1,11 @@
 package com.boot;
 
-import com.boot.common.utils.UUIDUtils;
-import com.boot.users.entity.Address;
-import com.boot.users.entity.Users;
-import com.boot.users.entity.UsersInfo;
-import com.boot.users.repository.AddressRepository;
-import com.boot.users.repository.UsersRepository;
+import com.boot.framework.utils.UUIDUtils;
+import com.boot.module.users.entity.Address;
+import com.boot.module.users.entity.Users;
+import com.boot.module.users.entity.UsersInfo;
+import com.boot.module.users.repository.AddressRepository;
+import com.boot.module.users.repository.UsersRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

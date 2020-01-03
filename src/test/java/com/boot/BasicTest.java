@@ -6,14 +6,12 @@ package com.boot;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import com.boot.common.utils.UUIDUtils;
 import com.boot.entity.MyAddress;
-import com.boot.user.entity.User;
-import com.boot.users.entity.Users;
+import com.boot.framework.utils.UUIDUtils;
+import com.boot.module.user.entity.User;
+import com.boot.module.users.entity.Users;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.RichTextString;
 import org.junit.Test;
 
 import java.math.BigDecimal;

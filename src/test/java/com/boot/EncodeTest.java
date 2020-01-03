@@ -4,7 +4,7 @@
  *******************************************************************************/
 package com.boot;
 
-import com.boot.common.utils.EscapeUtils;
+import com.boot.framework.utils.EscapeUtils;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;

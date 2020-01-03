@@ -1,7 +1,7 @@
 package com.boot;
 
-import com.boot.common.redis.RedisService;
-import com.boot.users.entity.Users;
+import com.boot.framework.redis.RedisService;
+import com.boot.module.users.entity.Users;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
