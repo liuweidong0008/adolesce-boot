@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <excelImportConfigs>
 	<config name="userImportConfiger">
-		<classPath>com.boot.excel.UserImportVo</classPath>
+		<classPath>com.boot.adolesce.module.excel.UserImportVo</classPath>
 		<!-- 实际起始行，第一行就是1 -->
 		<startLine>3</startLine>
 		<fields>

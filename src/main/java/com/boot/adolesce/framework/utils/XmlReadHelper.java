@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.springframework.core.io.ClassPathResource;
 
@@ -88,13 +89,13 @@ public class XmlReadHelper {
                     continue;
                 }
                 excelSheet.setSheetName(sheetName);
-                List<Element> headers = sheet.elements("headers/header");
+                List<Node> headers = sheet.selectNodes("headers/header");
                 if (CollUtil.isEmpty(headers)) {
                     log.error("读取Excel导出配置文件，config：sheets：sheet：headers缺少子节点：header,config = " + configName);
                     continue;
                 }
-                for (Element header : headers) {
-                    excelSheet.addHeader(header.attributeValue("name"), header.attributeValue("key"));
+                for (Node header : headers) {
+                    excelSheet.addHeader(((Element)header).attributeValue("name"), ((Element)header).attributeValue("key"));
                 }
                 excelSheetList.add(excelSheet);
             }

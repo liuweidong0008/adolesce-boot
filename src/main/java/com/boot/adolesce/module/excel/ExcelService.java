@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -222,37 +223,30 @@ public class ExcelService {
     }
 
     private void saveImportData(List<ExcelImportBaseBo> resultList,RedirectAttributes redirectAttributes) {
-        ExcelImportBaseBo excelInBoImportBaseBo;
+        UserImportVo userImportVo;
+        Map<String,String> dataMap = new HashMap<String,String>();
         //文件数据校验
         if(CollUtil.isNotEmpty(resultList)){
-            for(int i = 0; i < resultList.size(); i++){
-                excelInBoImportBaseBo = resultList.get(i);
-                //校验导入数据的格式
-                if(null != excelInBoImportBaseBo){
-                    boolean haveError = excelInBoImportBaseBo.hasErrors();
-                    if(haveError){
-                        redirectAttributes.addFlashAttribute("message",
-                                "第"+excelInBoImportBaseBo.getDataLine()+"行："+excelInBoImportBaseBo.getAllErrors());
-                    }
+            for(ExcelImportBaseBo bo : resultList){
+                //基本校验导入数据的格式
+                if( bo.hasErrors()){
+                    redirectAttributes.addFlashAttribute("message", "第"+bo.getDataLine()+"行："+bo.getAllErrors());
+                    return;
                 }
+                //业务校验有无相同工号数据
+                userImportVo = (UserImportVo)bo;
+                String data = dataMap.get(userImportVo.getUserNum());
+                if(Objects.nonNull(data)){
+                    redirectAttributes.addFlashAttribute("message",
+                            "第【"+ userImportVo.getDataLine()+"】行身份证与第【"+data+"】行工号重复,请确认！\n工号：【"+ userImportVo.getUserNum()+"】");
+                    return;
+                }
+                dataMap.put(userImportVo.getUserNum(), userImportVo.getDataLine()+"");
             }
         } else{
             redirectAttributes.addFlashAttribute("message", "excel中填写的信息为空,请填写相关数据!");
+            return;
         }
-        //检验有无相同工号数据
-        UserImportVo userImportVo = null;
-        Map<String,String> dataMap = new HashMap<String,String>();
-        for(int i = 0; i < resultList.size(); i++){
-            //获取表格数据，保存到对象中
-            userImportVo = (UserImportVo)resultList.get(i);
-            String data = dataMap.get(userImportVo.getUserNum());
-            if(data!=null){
-                redirectAttributes.addFlashAttribute("message",
-                        "第【"+ userImportVo.getDataLine()+"】行身份证与第【"+data+"】行工号重复,请确认！\n工号：【"+ userImportVo.getUserNum()+"】");
-            }
-            dataMap.put(userImportVo.getUserNum(), userImportVo.getDataLine()+"");
-        }
-
         //数据入库
         for(int i = 0; i < resultList.size(); i++){
             //获取表格数据，保存到对象中

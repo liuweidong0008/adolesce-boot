@@ -35,9 +35,9 @@ public class LogAop2 {
      */
     ThreadLocal<Long> startTime = new ThreadLocal<>();
     /**
-     * 定义切入点，controller下面的所有类的所有公有方法，这里需要更改成自己项目的
+     * 定义切入点，任意包下以Controller结尾类下面的任意公共方法
      */
-    @Pointcut("execution(public * com.boot.*.controller..*.*(..))")
+    @Pointcut("execution(public * com.boot..*.*Controller.*(..))")
     public void requestLog(){};
 
     /**

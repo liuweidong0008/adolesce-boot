@@ -1,4 +1,11 @@
 spring:
+  #热部署
+  devtools:
+    restart:
+      #热部署开关，false即不启用热部署
+      enabled: true
+      #指定目录不更新
+      exclude: test/**
   datasource:
     druid:
       url: jdbc:mysql://localhost:3306/mydatabase?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=true
@@ -77,23 +84,11 @@ spring:
       location: D://filetest/ # 上传文件的临时目录
       max-file-size: 15MB   # 单个文件最大支持上传大小
       max-request-size: 150MB  # 总数最大支持上传大小
-  #热部署
-  devtools:
-    restart:
-      #热部署开关，false即不启用热部署
-      enabled: true
-      #指定目录不更新
-      exclude: test/**
   mail:
     host: smtp.qiye.163.com
     username: service@51kxd.cn
     password: 1QAZ2wsx
     default-encoding: UTF-8
-
-person:
-  name: 张三
-  age: 16
-  address: 北京市
 
 #actuator监控配置(参考：https://www.cnblogs.com/ityouknow/p/8423590.html)
 management:
@@ -110,3 +105,8 @@ info:
   app:
     name: spring-boot-actuator
     version: 1.0.0    #http://localhost:8088/monitor/info
+
+person:
+  name: 张三
+  age: 16
+  address: 北京市

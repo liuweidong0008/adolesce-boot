@@ -56,7 +56,7 @@ public class ExcelImportBaseBo {
 		} else {
 			errors.put(fieldName, errorMsg);
 		}
-		allErrors = allErrors + errorMsg + ";";
+		allErrors = allErrors + errorMsg + "；";
 	}
 
 	/**
