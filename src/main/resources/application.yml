@@ -25,6 +25,11 @@ mybatis:
   #否则报Property 'configuration' and 'configLocation' can not specified with together
   type-aliases-package: com.boot.**.entity
 
+server:
+  port: 8081  #自定义监听端口,默认8080
+  servlet:
+    context-path: /adolesce_boot #配置项目名
+
 person:
   name: 李四
   age: 12
@@ -128,11 +133,7 @@ spring:
     username: service@51kxd.cn
     password: 1QAZ2wsx
     default-encoding: UTF-8
-server:
-  port: 8081  #自定义监听端口,默认8080
-  servlet:
-     context-path: /spring_boot #配置项目名
-      
+
 #actuator监控配置(参考：https://www.cnblogs.com/ityouknow/p/8423590.html)
 management:
   server:

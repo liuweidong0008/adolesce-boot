@@ -95,11 +95,6 @@ person:
   age: 16
   address: 北京市
 
-server:
-  port: 8081  #自定义监听端口,默认8080
-  servlet:
-    context-path: /spring_boot #配置项目名
-
 #actuator监控配置(参考：https://www.cnblogs.com/ityouknow/p/8423590.html)
 management:
   server:

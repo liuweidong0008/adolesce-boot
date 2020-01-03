@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.adolesce.module.user.mapper.UserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.boot.adolesce.module.user.entity.User">
+		<id column="id" property="id" />
+		<result column="age" property="age" />
+		<result column="birth_day" property="birthDay" />
+		<result column="email" property="email" />
+		<result column="flag" property="flag" />
+		<result column="hobby" property="hobby" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="phone" property="phone" />
+		<result column="role" property="role" />
+		<result column="salt" property="salt" />
+		<result column="saraly" property="saraly" />
+		<result column="sex" property="sex" />
+		<result column="usernum" property="usernum" />
+	</resultMap>
+
+</mapper>
