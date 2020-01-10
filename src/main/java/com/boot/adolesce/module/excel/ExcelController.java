@@ -35,37 +35,41 @@ public class ExcelController {
 
     /**
      * 导出方式一
+     *
      * @param response
      */
     @GetMapping(value = "/export/style1")
-    public void exportStyle1(HttpServletResponse response){
+    public void exportStyle1(HttpServletResponse response) {
         this.excelService.exportStyle1(response);
     }
 
     /**
      * 导出方式二
+     *
      * @param response
      */
     @GetMapping(value = "/export/style2")
-    public void exportStyle2(HttpServletResponse response){
+    public void exportStyle2(HttpServletResponse response) {
         this.excelService.exportStyle2(response);
     }
 
     /**
      * 导出方式三
+     *
      * @param response
      */
     @GetMapping(value = "/export/style3")
-    public void exportStyle3(HttpServletResponse response){
+    public void exportStyle3(HttpServletResponse response) {
         this.excelService.exportStyle3(response);
     }
 
     /**
      * 导出方式四
+     *
      * @param response
      */
     @GetMapping(value = "/export/style4")
-    public void exportStyle4(HttpServletResponse response){
+    public void exportStyle4(HttpServletResponse response) {
         this.excelService.exportStyle4(response);
     }
 
@@ -81,19 +85,17 @@ public class ExcelController {
 
     /**
      * 导入方式一
+     *
      * @param file
      * @param redirectAttributes
      */
     @PostMapping(value = "/import/style1")
     public String importStyle1(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws Exception {
-        System.out.println("11111111");
-        System.out.println("11111111");
-        System.out.println("222");
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             return "redirect:/uploadStatus";
         }
-        this.excelService.importStyle1(file,redirectAttributes);
+        this.excelService.importStyle1(file, redirectAttributes);
         return "redirect:/uploadStatus";
     }
 

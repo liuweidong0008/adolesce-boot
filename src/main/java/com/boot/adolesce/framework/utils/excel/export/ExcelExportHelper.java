@@ -104,10 +104,19 @@ public class ExcelExportHelper {
             cell.setCellValue(excelHeaders.get(i).getHeaderName());
         }
         int n = 0;
+        List<Field> fields = new ArrayList<>();
         if (CollUtil.isNotEmpty(dataList)) {
             for (Object obj: dataList) {
-                Field[] fields = obj.getClass().getDeclaredFields();
-                Map<String,Field> fieldMap = Arrays.stream(fields).collect(Collectors.toMap(Field::getName, Function.identity()));
+                if(CollUtil.isEmpty(fields)) {
+                    Class tempClass = obj.getClass();
+                    //当父类为null的时候说明到达了最上层的父类(Object类).
+                    while (tempClass != null) {
+                        fields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
+                        //得到父类,然后赋给自己
+                        tempClass = tempClass.getSuperclass();
+                    }
+                }
+                Map<String,Field> fieldMap = fields.stream().collect(Collectors.toMap(Field::getName, Function.identity()));
                 row = sheet.createRow(n + 1);
                 row.setHeight((short) 458);
                 for (int j = 0; j < headerSize; j++) {

@@ -29,8 +29,8 @@ public class MybatisPlusTest{
 	
 	@Test
 	public void test1(){
-		Wrapper<User> userQueryWrapper = new EntityWrapper<User>();
-		userQueryWrapper.eq("age", 22);
+		Wrapper<User> userQueryWrapper = new EntityWrapper<>();
+		userQueryWrapper.eq("age", 12);
 		//userQueryWrapper.in("flag", "1");
 		List<User> userList = this.userServiceImpl.selectList(userQueryWrapper);
 		System.err.println(userList);
@@ -41,7 +41,7 @@ public class MybatisPlusTest{
 	 * ne
 	 */
 	@Test
-	public void testEq() throws ParseException{
+	public void testEq(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.eq("serial_no", "KXD1491534271296521");
 		recordQueryWrapper.eq("org_id","201608050001");
@@ -49,7 +49,7 @@ public class MybatisPlusTest{
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testNe() throws ParseException{
+	public void testNe(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.eq("serial_no", "KXD1491446816718581");
 		recordQueryWrapper.ne("org_id","201612220001");
@@ -62,14 +62,14 @@ public class MybatisPlusTest{
 	 * notIn
 	 */
 	@Test
-	public void testIn1() throws ParseException{
+	public void testIn1(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.in("serial_no","KXD1491534271296521,KXD151022561733751,801828121515491393957641");
 		//WHERE (serial_no IN (?,?,?)) 
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testIn2() throws ParseException{
+	public void testIn2(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		String[] arr = {"KXD1491369102379331","KXD150675297785607","KXD1491397184622312"};
 		recordQueryWrapper.in("serial_no", arr);
@@ -77,7 +77,7 @@ public class MybatisPlusTest{
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testIn3() throws ParseException{
+	public void testIn3(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		List<String> list = new ArrayList<String>();
 		list.add("KXD1491369102379331");
@@ -88,7 +88,7 @@ public class MybatisPlusTest{
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testNotIn() throws ParseException{
+	public void testNotIn(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		List<String> list = new ArrayList<String>();
 		list.add("KXD1491369102379331");
@@ -104,42 +104,42 @@ public class MybatisPlusTest{
 	 * notLike
 	 */
 	@Test
-	public void testlike1() throws ParseException{
+	public void testlike1(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.like("serial_no", "KXD1491369102379331");
 		//WHERE (serial_no LIKE ?)  	%KXD1491369102379331%
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testlike2() throws ParseException{
+	public void testlike2(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.like("serial_no", "KXD1491369102379331", SqlLike.CUSTOM);
 		//WHERE (serial_no LIKE ?)  	KXD1491369102379331
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testlike3() throws ParseException{
+	public void testlike3(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.like("serial_no", "KXD1491369102379331", SqlLike.DEFAULT);
 		//WHERE (serial_no LIKE ?)  	%KXD1491369102379331%
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testlike4() throws ParseException{
+	public void testlike4(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.like("serial_no", "KXD1491369102379331", SqlLike.LEFT);
 		//WHERE (serial_no LIKE ?)  	%KXD1491369102379331
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testlike5() throws ParseException{
+	public void testlike5(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.like("serial_no", "KXD1491369102379331", SqlLike.RIGHT);
 		//WHERE (serial_no LIKE ?)  	KXD1491369102379331%
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testNotlike1() throws ParseException{
+	public void testNotlike1(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.notLike("currency", "CN");
 		//WHERE (currency NOT LIKE ?)  	%CN%	备注:currency为 null的不会被检索出来
@@ -151,14 +151,14 @@ public class MybatisPlusTest{
 	 * is not null 
 	 */
 	@Test
-	public void testIsNull() throws ParseException{
+	public void testIsNull(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.isNull("serial_no");
 		//WHERE (serial_no IS NULL) 
 		this.selectList(recordQueryWrapper);
 	}
 	@Test
-	public void testIsNotNull() throws ParseException{
+	public void testIsNotNull(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.isNotNull("e_serial_no");
 		//WHERE (e_serial_no IS NOT NULL) 
@@ -214,7 +214,7 @@ public class MybatisPlusTest{
 	 * or()  orNew(xx) orNew(xx,xx) :新建条件括号拼接
 	 */
 	@Test
-	public void testOr() throws ParseException{
+	public void testOr(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		
 		//示例一
@@ -243,7 +243,7 @@ public class MybatisPlusTest{
 	 * and()  andNew(xx) andNew(xx,xx) :新建条件括号拼接
 	 */
 	@Test
-	public void testAnd() throws ParseException{
+	public void testAnd(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		
 		//示例一
@@ -270,7 +270,7 @@ public class MybatisPlusTest{
 	 * orderBy (false:desc  true:asc 默认)
 	 */
 	@Test
-	public void testOrderBy() throws ParseException{
+	public void testOrderBy(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.in("status","2");
 		
@@ -286,7 +286,7 @@ public class MybatisPlusTest{
 	 * groupBy
 	 */
 	@Test
-	public void testGroupBy() throws ParseException{
+	public void testGroupBy(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.in("status","0,1,2");
 		recordQueryWrapper.groupBy("org_id");
@@ -299,7 +299,7 @@ public class MybatisPlusTest{
 	 * having
 	 */
 	@Test
-	public void testHaving() throws ParseException{
+	public void testHaving(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.in("status","0,1,2");
 		recordQueryWrapper.groupBy("org_id");
@@ -313,7 +313,7 @@ public class MybatisPlusTest{
 	 *where
 	 */
 	@Test
-	public void testWhere() throws ParseException{
+	public void testWhere(){
 		Wrapper<MemberRecord> recordQueryWrapper = new EntityWrapper<MemberRecord>();
 		recordQueryWrapper.where("serial_no = {0}", "KXD1491446816718581");
 		recordQueryWrapper.eq("org_id","201612220001");
@@ -433,7 +433,7 @@ public class MybatisPlusTest{
 	}
 	
 	@Test
-	public void testInsert() throws ParseException{
+	public void testInsert(){
 		User user = new User();
 		user.setId("1");
 		user.setAge(15);
@@ -529,7 +529,7 @@ public class MybatisPlusTest{
 	}
 
 	@Test
-	public void testDelete() throws ParseException{
+	public void testDelete(){
 		//一
 		/*User user = new User();
 		user.setId("1");
