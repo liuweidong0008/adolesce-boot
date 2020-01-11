@@ -4,7 +4,10 @@
  *******************************************************************************/
 package com.boot.adolesce.module.commonbean;
 
+import com.boot.adolesce.module.excel.UserImportVo;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * <b>Application name：</b> MyParam.java <br>
@@ -22,4 +25,7 @@ public class MyParam {
     private String address;
     private Integer age;
     private String ip;
+
+    private UserImportVo userImportVo;
+    private List<UserImportVo> userImportVos;
 }

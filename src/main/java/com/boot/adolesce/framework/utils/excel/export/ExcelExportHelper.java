@@ -104,52 +104,94 @@ public class ExcelExportHelper {
             cell.setCellValue(excelHeaders.get(i).getHeaderName());
         }
         int n = 0;
-        List<Field> fields = new ArrayList<>();
+        //class name > (field name > field)
+        Map<String, Map<String, Field>> classMap = new HashMap<>();
         if (CollUtil.isNotEmpty(dataList)) {
-            for (Object obj: dataList) {
-                if(CollUtil.isEmpty(fields)) {
-                    Class tempClass = obj.getClass();
-                    //当父类为null的时候说明到达了最上层的父类(Object类).
-                    while (tempClass != null) {
-                        fields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
-                        //得到父类,然后赋给自己
-                        tempClass = tempClass.getSuperclass();
-                    }
-                }
-                Map<String,Field> fieldMap = fields.stream().collect(Collectors.toMap(Field::getName, Function.identity()));
+            for (Object obj : dataList) {
                 row = sheet.createRow(n + 1);
                 row.setHeight((short) 458);
+                Object fieldValue;
                 for (int j = 0; j < headerSize; j++) {
-                    Field field = fieldMap.get(excelHeaders.get(j).getHeaderKey());
-                    if(Objects.nonNull(field)){
-                        field.setAccessible(true);
-                        cell = row.createCell(j);
-                        cell.setCellType(CellType.STRING);
-                        cell.setCellStyle(dataCellStyle);
-                        Object fieldValue = null;
-                        try {
-                            fieldValue = field.get(obj);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                        if (Objects.isNull(fieldValue)) {
-                            cell.setCellValue("");
-                            continue;
-                        }
-                        if (fieldValue instanceof Date) {
-                            Date dateTemp = (Date)fieldValue;
-                            cell.setCellValue(DateUtil.format(dateTemp, dateFormart));
-                            continue;
-                        }
-                        cell.setCellValue(fieldValue.toString());
+                    fieldValue = getFieldValue(obj, excelHeaders.get(j).getHeaderKey(), classMap);
+                    cell = row.createCell(j);
+                    cell.setCellType(CellType.STRING);
+                    cell.setCellStyle(dataCellStyle);
+                    if (Objects.isNull(fieldValue)) {
+                        cell.setCellValue("");
+                        continue;
                     }
+                    if (fieldValue instanceof Date) {
+                        Date dateTemp = (Date) fieldValue;
+                        cell.setCellValue(DateUtil.format(dateTemp, dateFormart));
+                        continue;
+                    }
+                    cell.setCellValue(fieldValue.toString());
                 }
                 n++;
             }
         }
-        for (int i = 0; i < excelHeaders.size(); i++) {
+        for (int i = 0; i < headerSize; i++) {
             sheet.setColumnWidth(i, 6251);
         }
+    }
+
+    /**
+     * 根据属性名获取属性值
+     *
+     * @param obj       对象
+     * @param headerKey 属性名（xx 或 xx.yy.zz....）
+     * @param classMap  class name > (field name > field)
+     * @return
+     */
+    private static Object getFieldValue(Object obj, String headerKey, Map<String, Map<String, Field>> classMap) {
+        Object fieldValue = null;
+        Field field;
+        String className;
+        Map<String,Field> fieldMap;
+        List<String> fieldNames = Arrays.asList(headerKey.split("\\."));
+
+        for (String fiedName : fieldNames) {
+            className = obj.getClass().getName();
+            fieldMap = classMap.get(className);
+            if(CollUtil.isEmpty(fieldMap)){
+                fieldMap = getFieldMap4Object(obj);
+                classMap.put(className,fieldMap);
+            }
+            field = fieldMap.get(fiedName);
+            if(Objects.isNull(field)){
+                return fieldValue;
+            }
+            try {
+                field.setAccessible(true);
+                fieldValue = field.get(obj);
+                if(Objects.isNull(fieldValue)){
+                    return fieldValue;
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            obj = fieldValue;
+        }
+        return fieldValue;
+    }
+
+    /**
+     * 获取类属性字段Map（字段名称：字段）
+     *
+     * @param obj
+     * @return Map
+     */
+    private static Map<String, Field> getFieldMap4Object(Object obj) {
+        List<Field> fields = new ArrayList<>();
+        Class tempClass = obj.getClass();
+        //当父类为null的时候说明到达了最上层的父类(Object类).
+        while (tempClass != null) {
+            fields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
+            //得到父类,然后赋给自己
+            tempClass = tempClass.getSuperclass();
+        }
+        Map<String, Field> fieldMap = fields.stream().collect(Collectors.toMap(Field::getName, Function.identity()));
+        return fieldMap;
     }
 
     /**

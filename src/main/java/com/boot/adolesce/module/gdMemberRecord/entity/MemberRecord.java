@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.boot.adolesce.module.commonbean.MyParam;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,6 @@ import java.util.Date;
 @Data
 @TableName("gd_member_record")
 public class MemberRecord extends Model<MemberRecord> {
-	private static final long serialVersionUID = 1L;
 	@TableId
 	private String id;
 
@@ -86,5 +86,8 @@ public class MemberRecord extends Model<MemberRecord> {
 	protected Serializable pkVal() {
 		return this.id;
 	}
+
+	@TableField(exist = false)
+	private MyParam myParam;
 
 }

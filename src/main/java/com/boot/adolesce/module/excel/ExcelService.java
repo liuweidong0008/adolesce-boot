@@ -15,6 +15,7 @@ import com.boot.adolesce.framework.utils.excel.export.ExcelExportHelper;
 import com.boot.adolesce.framework.utils.excel.export.ExcelExportParams;
 import com.boot.adolesce.framework.utils.excel.imports.ExcelImportBaseBo;
 import com.boot.adolesce.framework.utils.excel.imports.ExcelImportHelper;
+import com.boot.adolesce.module.commonbean.MyParam;
 import com.boot.adolesce.module.gdMemberRecord.entity.MemberRecord;
 import com.boot.adolesce.module.gdMemberRecord.service.IMemberRecordService;
 import com.boot.adolesce.module.user.entity.User;
@@ -55,8 +56,8 @@ public class ExcelService {
             List<MemberRecord> memberRecords = this.getUsers(false);
             List<MemberRecord> memberRecordIns = this.getUsers(true);
 
-            String[] headerName1 = { "流水号", "姓名","银行卡号","银行名称","交易时间"};
-            String[] headerKey1 = { "serialNo","clientName", "cardNo", "bankName", "transferTime"};
+            String[] headerName1 = { "流水号", "姓名","银行卡号","银行名称","交易时间","参数地址","导出姓名"};
+            String[] headerKey1 = { "serialNo","clientName", "cardNo", "bankName", "transferTime","myParam.address","myParam.userImportVo.name"};
 
             String[] headerName2 = { "流水号", "姓名","创建时间"};
             String[] headerKey2 = { "serialNo","clientName", "transferTime"};
@@ -191,6 +192,18 @@ public class ExcelService {
             recordQueryWrapper.in("serial_no","KXD1491534271296521,KXD151022561733751,801828121515491393957641");
         }
         List<MemberRecord> records = this.memberRecordServiceImpl.selectList(recordQueryWrapper);
+
+        int n = 0;
+        for(MemberRecord record : records){
+            MyParam myParam = new MyParam();
+            UserImportVo importVo = new UserImportVo();
+            importVo.setName("刘威东"+ n++);
+            importVo.setAge(n);
+            myParam.setUserImportVo(importVo);
+            myParam.setUserImportVos(CollUtil.newArrayList(importVo));
+            myParam.setAddress("湖南长沙"+n);
+            record.setMyParam(myParam);
+        }
         return records;
     }
 

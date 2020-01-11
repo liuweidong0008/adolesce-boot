@@ -4,9 +4,11 @@
  *******************************************************************************/
 package com.boot.adolesce;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.boot.adolesce.module.user.entity.User;
+import com.boot.adolesce.module.users.entity.Address;
 import com.boot.adolesce.module.users.entity.Users;
 import com.boot.adolesce.entity.MyAddress;
 import com.boot.adolesce.framework.utils.UUIDUtils;
@@ -309,7 +311,13 @@ public class BasicTest {
 
         sets.addAll(list1);
         sets.addAll(list2);
-        System.out.println(sets);
+        Map<String,String> map = CollUtil.newHashMap();
+        map.put("a1","b1");
+        map.put("a2","b2");
+        map.put("a3","b3");
+
+        System.out.println(sets.toString());
+        System.out.println(map.toString());
     }
 
     @Test
@@ -332,8 +340,18 @@ public class BasicTest {
         System.out.println(StringUtils.isBlank(""));
         System.out.println(StringUtils.isBlank(null));
         System.out.println(StringUtils.isBlank(null));
+    }
 
-
+    @Test
+    public void test14(){
+       String str = "ab.cd.ef";
+       if(str.contains(".")){
+           List<String> list = Arrays.asList(str.split("\\."));
+           list.stream().forEach(System.err::println);
+       }
+       Object obj = new Address();
+       System.out.println(obj.getClass().getName());
+       System.out.println(obj.getClass().getSuperclass().getName());
     }
 
 }
