@@ -12,8 +12,11 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -229,9 +232,9 @@ public class ExcelExportHelper {
                 throw new Exception("缺少相关参数");
             }
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-disposition",
-                    "attachment;filename=" + new String(fileName.getBytes("gb2312"), "ISO-8859-1"));
-            //response.addHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8"));
+            /*response.setHeader("Content-disposition",
+                    "attachment;filename=" + new String(fileName.getBytes("gb2312"), "ISO-8859-1"));*/
+            response.addHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8"));
             outputStream = response.getOutputStream();
 
             Workbook wb;

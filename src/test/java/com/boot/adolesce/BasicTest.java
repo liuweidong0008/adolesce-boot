@@ -7,17 +7,18 @@ package com.boot.adolesce;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import com.boot.adolesce.entity.MyAddress;
+import com.boot.adolesce.framework.utils.UUIDUtils;
 import com.boot.adolesce.module.user.entity.User;
 import com.boot.adolesce.module.users.entity.Address;
 import com.boot.adolesce.module.users.entity.Users;
-import com.boot.adolesce.entity.MyAddress;
-import com.boot.adolesce.framework.utils.UUIDUtils;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -352,6 +353,20 @@ public class BasicTest {
        Object obj = new Address();
        System.out.println(obj.getClass().getName());
        System.out.println(obj.getClass().getSuperclass().getName());
+    }
+
+    @Test
+    public void test15(){
+        Integer step = 7;
+        Date day = DateUtil.offsetDay(DateTime.now(),-step);
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(day));
+    }
+
+    @Test
+    public void test16(){
+        Date date = new Date(0);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(format.format(date));
     }
 
 }
