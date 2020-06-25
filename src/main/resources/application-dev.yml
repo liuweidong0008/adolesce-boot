@@ -60,7 +60,7 @@ spring:
        #ddl-auto: none
   redis:
     database: 0             #数据库索引（默认为0）
-    host: 192.168.0.245  #服务器地址
+    host: 192.168.16.113  #服务器地址
     port: 6379              #服务器连接端口(默认)
     password: lwd               #服务器连接密码 (默认为空 没有不填)
     timeout: 60000ms          #连接超时时间（毫秒）
@@ -71,7 +71,7 @@ spring:
         max-idle: 100         #连接池中的最大空闲连接 默认 8
         min-idle: 0           #连接池中的最小空闲连接 默认 0
   rabbitmq:
-    host: 192.168.0.245
+    host: 192.168.16.113
     port: 5672
     username: lwd
     password: lwd
